@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Doces da Escola</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
 <style>
 
 body{
@@ -12,10 +13,9 @@ body{
     font-family: Arial, Helvetica, sans-serif;
     background: linear-gradient(135deg, #000000, #3a005f);
     color:white;
-    display:flex;
 }
 
-/* LADO ESQUERDO DECORATIVO */
+/* LADO DECORATIVO */
 .decoracao{
     width:25%;
     background: linear-gradient(#ff00aa,#8000ff);
@@ -27,10 +27,15 @@ body{
     gap:20px;
 }
 
-/* CONTEÚDO */
+/* CONTAINER */
 .container{
     width:75%;
     padding:20px;
+}
+
+.layout{
+    display:flex;
+    min-height:100vh;
 }
 
 h1{
@@ -56,13 +61,14 @@ h1{
     border-radius:8px;
     cursor:pointer;
     font-weight:bold;
+    margin-left:5px;
 }
 
 .controles button:hover{
     background:#ff66cc;
 }
 
-/* CARRINHO */
+/* BOTÃO CARRINHO */
 .carrinho-btn{
     position:fixed;
     top:20px;
@@ -72,8 +78,10 @@ h1{
     border-radius:50%;
     cursor:pointer;
     font-size:20px;
+    z-index:1000;
 }
 
+/* MENU CARRINHO */
 .carrinho{
     position:fixed;
     right:-350px;
@@ -83,6 +91,7 @@ h1{
     background:#120012;
     padding:20px;
     transition:0.4s;
+    z-index:999;
 }
 
 .carrinho.active{
@@ -101,9 +110,43 @@ h1{
     margin-top:10px;
 }
 
+.cancelar{
+    background:#ff0066;
+    width:100%;
+    padding:10px;
+    border:none;
+    border-radius:10px;
+    color:white;
+    font-weight:bold;
+    cursor:pointer;
+    margin-top:10px;
+}
+
+/* RESPONSIVO CELULAR */
+@media (max-width: 768px){
+
+    .layout{
+        display:block;
+    }
+
+    .decoracao{
+        width:100%;
+        height:120px;
+        flex-direction:row;
+        font-size:30px;
+    }
+
+    .container{
+        width:100%;
+    }
+}
+
 </style>
 </head>
+
 <body>
+
+<div class="layout">
 
 <div class="decoracao">
 🍬 🍭 🍫 🍩
@@ -115,46 +158,52 @@ h1{
 <div class="produto">
 <span>Paçoca - R$0,50</span>
 <div class="controles">
-<button onclick="alterar('pacoca',0.5,1)">+</button>
-<button onclick="alterar('pacoca',0.5,-1)">-</button>
+<button onclick="alterar('Paçoca',0.5,1)">+</button>
+<button onclick="alterar('Paçoca',0.5,-1)">-</button>
 </div>
 </div>
 
 <div class="produto">
 <span>Pirulito - R$1,00</span>
 <div class="controles">
-<button onclick="alterar('pirulito',1,1)">+</button>
-<button onclick="alterar('pirulito',1,-1)">-</button>
+<button onclick="alterar('Pirulito',1,1)">+</button>
+<button onclick="alterar('Pirulito',1,-1)">-</button>
 </div>
 </div>
 
 <div class="produto">
 <span>Chiclete - R$0,50</span>
 <div class="controles">
-<button onclick="alterar('chiclete',0.5,1)">+</button>
-<button onclick="alterar('chiclete',0.5,-1)">-</button>
+<button onclick="alterar('Chiclete',0.5,1)">+</button>
+<button onclick="alterar('Chiclete',0.5,-1)">-</button>
 </div>
 </div>
 
 <div class="produto">
 <span>Salgadinho - R$2,50</span>
 <div class="controles">
-<button onclick="alterar('salgadinho',2.5,1)">+</button>
-<button onclick="alterar('salgadinho',2.5,-1)">-</button>
+<button onclick="alterar('Salgadinho',2.5,1)">+</button>
+<button onclick="alterar('Salgadinho',2.5,-1)">-</button>
 </div>
 </div>
 
 </div>
+</div>
 
+<!-- BOTÃO FLUTUANTE -->
 <div class="carrinho-btn" onclick="toggleCarrinho()">
 <i class="fas fa-shopping-cart"></i>
 </div>
 
+<!-- CARRINHO -->
 <div class="carrinho" id="carrinho">
 <h2>Seu Carrinho</h2>
 <div id="lista"></div>
 <h3>Total: R$ <span id="total">0.00</span></h3>
+
 <button class="finalizar" onclick="finalizar()">Finalizar</button>
+<button class="cancelar" onclick="toggleCarrinho()">Cancelar</button>
+
 </div>
 
 <script>
@@ -184,6 +233,7 @@ function atualizar(){
             lista.innerHTML += `<p>${item} x${carrinho[item].qtd} - R$${subtotal.toFixed(2)}</p>`;
         }
     }
+
     document.getElementById("total").innerText = total.toFixed(2);
 }
 
@@ -210,4 +260,4 @@ function finalizar(){
 </script>
 
 </body>
-  </html>
+    </html>
