@@ -1,1 +1,213 @@
-# 3-anovendas
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Doces da Escola</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+
+body{
+    margin:0;
+    font-family: Arial, Helvetica, sans-serif;
+    background: linear-gradient(135deg, #000000, #3a005f);
+    color:white;
+    display:flex;
+}
+
+/* LADO ESQUERDO DECORATIVO */
+.decoracao{
+    width:25%;
+    background: linear-gradient(#ff00aa,#8000ff);
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    font-size:40px;
+    gap:20px;
+}
+
+/* CONTEÚDO */
+.container{
+    width:75%;
+    padding:20px;
+}
+
+h1{
+    text-align:center;
+    color:#ff4dd2;
+}
+
+.produto{
+    background:#1a001f;
+    padding:15px;
+    margin:15px 0;
+    border-radius:15px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.controles button{
+    background:#ff00aa;
+    border:none;
+    padding:8px 12px;
+    color:white;
+    border-radius:8px;
+    cursor:pointer;
+    font-weight:bold;
+}
+
+.controles button:hover{
+    background:#ff66cc;
+}
+
+/* CARRINHO */
+.carrinho-btn{
+    position:fixed;
+    top:20px;
+    right:20px;
+    background:#ff00aa;
+    padding:15px;
+    border-radius:50%;
+    cursor:pointer;
+    font-size:20px;
+}
+
+.carrinho{
+    position:fixed;
+    right:-350px;
+    top:0;
+    width:300px;
+    height:100%;
+    background:#120012;
+    padding:20px;
+    transition:0.4s;
+}
+
+.carrinho.active{
+    right:0;
+}
+
+.finalizar{
+    background:#8000ff;
+    width:100%;
+    padding:10px;
+    border:none;
+    border-radius:10px;
+    color:white;
+    font-weight:bold;
+    cursor:pointer;
+    margin-top:10px;
+}
+
+</style>
+</head>
+<body>
+
+<div class="decoracao">
+🍬 🍭 🍫 🍩
+</div>
+
+<div class="container">
+<h1>Doces da Escola</h1>
+
+<div class="produto">
+<span>Paçoca - R$0,50</span>
+<div class="controles">
+<button onclick="alterar('pacoca',0.5,1)">+</button>
+<button onclick="alterar('pacoca',0.5,-1)">-</button>
+</div>
+</div>
+
+<div class="produto">
+<span>Pirulito - R$1,00</span>
+<div class="controles">
+<button onclick="alterar('pirulito',1,1)">+</button>
+<button onclick="alterar('pirulito',1,-1)">-</button>
+</div>
+</div>
+
+<div class="produto">
+<span>Chiclete - R$0,50</span>
+<div class="controles">
+<button onclick="alterar('chiclete',0.5,1)">+</button>
+<button onclick="alterar('chiclete',0.5,-1)">-</button>
+</div>
+</div>
+
+<div class="produto">
+<span>Salgadinho - R$2,50</span>
+<div class="controles">
+<button onclick="alterar('salgadinho',2.5,1)">+</button>
+<button onclick="alterar('salgadinho',2.5,-1)">-</button>
+</div>
+</div>
+
+</div>
+
+<div class="carrinho-btn" onclick="toggleCarrinho()">
+<i class="fas fa-shopping-cart"></i>
+</div>
+
+<div class="carrinho" id="carrinho">
+<h2>Seu Carrinho</h2>
+<div id="lista"></div>
+<h3>Total: R$ <span id="total">0.00</span></h3>
+<button class="finalizar" onclick="finalizar()">Finalizar</button>
+</div>
+
+<script>
+
+let carrinho = {};
+
+function alterar(nome, preco, quantidade){
+    if(!carrinho[nome]){
+        carrinho[nome] = {qtd:0, preco:preco};
+    }
+    carrinho[nome].qtd += quantidade;
+    if(carrinho[nome].qtd < 0){
+        carrinho[nome].qtd = 0;
+    }
+    atualizar();
+}
+
+function atualizar(){
+    let lista = document.getElementById("lista");
+    let total = 0;
+    lista.innerHTML="";
+    
+    for(let item in carrinho){
+        if(carrinho[item].qtd > 0){
+            let subtotal = carrinho[item].qtd * carrinho[item].preco;
+            total += subtotal;
+            lista.innerHTML += `<p>${item} x${carrinho[item].qtd} - R$${subtotal.toFixed(2)}</p>`;
+        }
+    }
+    document.getElementById("total").innerText = total.toFixed(2);
+}
+
+function toggleCarrinho(){
+    document.getElementById("carrinho").classList.toggle("active");
+}
+
+function finalizar(){
+    let mensagem = "Olá! Quero comprar:%0A";
+    let total = 0;
+
+    for(let item in carrinho){
+        if(carrinho[item].qtd > 0){
+            mensagem += `${item} x${carrinho[item].qtd}%0A`;
+            total += carrinho[item].qtd * carrinho[item].preco;
+        }
+    }
+
+    mensagem += `Total: R$${total.toFixed(2)}`;
+    
+    window.open(`https://wa.me/553898140575?text=${mensagem}`);
+}
+
+</script>
+
+</body>
+</html>
