@@ -8,12 +8,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 
 <style>
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:'Poppins',sans-serif;
-}
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
 
 body{
 background:linear-gradient(135deg,#2b003f,#4b0082,#ff00aa);
@@ -24,17 +19,11 @@ overflow-x:hidden;
 
 header{
 text-align:center;
-padding:30px 20px;
+padding:30px;
 font-size:28px;
 font-weight:700;
 background:linear-gradient(90deg,#ff00aa,#a200ff);
 box-shadow:0 5px 20px rgba(0,0,0,0.4);
-animation:fadeDown 1s ease;
-}
-
-@keyframes fadeDown{
-from{opacity:0; transform:translateY(-40px);}
-to{opacity:1; transform:translateY(0);}
 }
 
 .container{
@@ -54,17 +43,9 @@ background:rgba(255,255,255,0.1);
 backdrop-filter:blur(10px);
 box-shadow:0 8px 20px rgba(0,0,0,0.3);
 transition:0.3s;
-animation:fadeUp 0.8s ease;
 }
 
-@keyframes fadeUp{
-from{opacity:0; transform:translateY(30px);}
-to{opacity:1; transform:translateY(0);}
-}
-
-.item:hover{
-transform:scale(1.03);
-}
+.item:hover{transform:scale(1.03);}
 
 .controls button{
 border:none;
@@ -75,21 +56,13 @@ font-size:18px;
 font-weight:bold;
 cursor:pointer;
 transition:0.2s;
-}
-
-.plus{
-background:#ff00aa;
 color:white;
 }
 
-.minus{
-background:#a200ff;
-color:white;
-}
+.plus{background:#ff00aa;}
+.minus{background:#a200ff;}
 
-.controls button:hover{
-transform:scale(1.2);
-}
+.controls button:hover{transform:scale(1.2);}
 
 .cart-button{
 position:fixed;
@@ -105,11 +78,6 @@ justify-content:center;
 font-size:30px;
 cursor:pointer;
 box-shadow:0 10px 25px rgba(0,0,0,0.5);
-transition:0.3s;
-}
-
-.cart-button:hover{
-transform:scale(1.1);
 }
 
 .cart{
@@ -125,21 +93,11 @@ transition:0.5s;
 overflow-y:auto;
 }
 
-.cart.active{
-right:0;
-}
+.cart.active{right:0;}
 
-.cart h2{
-margin-bottom:15px;
-}
+.total{margin:15px 0;font-size:20px;font-weight:600;}
 
-.total{
-margin:15px 0;
-font-size:20px;
-font-weight:600;
-}
-
-.finalizar, .cancelar{
+.finalizar,.cancelar{
 width:100%;
 padding:15px;
 border:none;
@@ -150,18 +108,97 @@ cursor:pointer;
 transition:0.3s;
 }
 
-.finalizar{
-background:#25D366;
-color:white;
+.finalizar{background:#25D366;color:white;}
+.cancelar{background:#ff0040;color:white;}
+
+.finalizar:hover,.cancelar:hover{transform:scale(1.05);}
+
+/* CONFIRMAÇÃO */
+
+.confirmacao{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.9);
+display:flex;
+align-items:center;
+justify-content:center;
+opacity:0;
+pointer-events:none;
+transition:0.4s;
+flex-direction:column;
 }
 
-.cancelar{
-background:#ff0040;
-color:white;
+.confirmacao.active{
+opacity:1;
+pointer-events:all;
 }
 
-.finalizar:hover,.cancelar:hover{
-transform:scale(1.05);
+.confirm-box{
+background:linear-gradient(135deg,#00ff88,#00cc66);
+padding:40px;
+border-radius:20px;
+text-align:center;
+animation:pop 0.5s ease;
+color:#003322;
+}
+
+@keyframes pop{
+from{transform:scale(0.5);opacity:0;}
+to{transform:scale(1);opacity:1;}
+}
+
+.checkmark{
+width:80px;
+height:80px;
+border-radius:50%;
+border:4px solid white;
+margin:auto;
+position:relative;
+}
+
+.checkmark::after{
+content:'';
+position:absolute;
+left:22px;
+top:38px;
+width:20px;
+height:40px;
+border-right:5px solid white;
+border-bottom:5px solid white;
+transform:rotate(45deg);
+animation:draw 0.6s ease forwards;
+opacity:0;
+}
+
+@keyframes draw{
+to{opacity:1;}
+}
+
+.confirm-box button{
+margin-top:20px;
+padding:12px 25px;
+border:none;
+border-radius:10px;
+background:white;
+color:#00aa55;
+font-weight:bold;
+cursor:pointer;
+}
+
+.confetti{
+position:fixed;
+width:10px;
+height:10px;
+background:red;
+top:-10px;
+animation:fall linear forwards;
+}
+
+@keyframes fall{
+to{transform:translateY(100vh) rotate(720deg);}
 }
 
 footer{
@@ -170,9 +207,9 @@ padding:15px;
 opacity:0.7;
 font-size:13px;
 }
-
 </style>
 </head>
+
 <body>
 
 <header>🍭 Doces 3° Informática 🍩</header>
@@ -182,32 +219,32 @@ font-size:13px;
 <div class="item">
 <span>Paçoca - R$0,50</span>
 <div class="controls">
-<button class="minus" onclick="add('Paçoca',0.50,-1)">-</button>
-<button class="plus" onclick="add('Paçoca',0.50,1)">+</button>
+<button class="minus" onclick="addItem('Paçoca',0.50,-1)">-</button>
+<button class="plus" onclick="addItem('Paçoca',0.50,1)">+</button>
 </div>
 </div>
 
 <div class="item">
 <span>Pirulito - R$1,00</span>
 <div class="controls">
-<button class="minus" onclick="add('Pirulito',1.00,-1)">-</button>
-<button class="plus" onclick="add('Pirulito',1.00,1)">+</button>
+<button class="minus" onclick="addItem('Pirulito',1.00,-1)">-</button>
+<button class="plus" onclick="addItem('Pirulito',1.00,1)">+</button>
 </div>
 </div>
 
 <div class="item">
 <span>Chiclete - R$0,50</span>
 <div class="controls">
-<button class="minus" onclick="add('Chiclete',0.50,-1)">-</button>
-<button class="plus" onclick="add('Chiclete',0.50,1)">+</button>
+<button class="minus" onclick="addItem('Chiclete',0.50,-1)">-</button>
+<button class="plus" onclick="addItem('Chiclete',0.50,1)">+</button>
 </div>
 </div>
 
 <div class="item">
-<span>Salgadinho - R$2,50</span>
+<span>Salgadinho - R$3,00</span>
 <div class="controls">
-<button class="minus" onclick="add('Salgadinho',3.00,-1)">-</button>
-<button class="plus" onclick="add('Salgadinho',3.00,1)">+</button>
+<button class="minus" onclick="addItem('Salgadinho',3.00,-1)">-</button>
+<button class="plus" onclick="addItem('Salgadinho',3.00,1)">+</button>
 </div>
 </div>
 
@@ -223,36 +260,38 @@ font-size:13px;
 <button class="cancelar" onclick="cancelar()">Cancelar Pedido</button>
 </div>
 
-<footer>
-© 2026 Doces do 3° Ano - Feito com 💜
-</footer>
+<!-- CONFIRMAÇÃO -->
+<div class="confirmacao" id="confirmacao">
+<div class="confirm-box">
+<div class="checkmark"></div>
+<h2>Pedido Confirmado!</h2>
+<p>Enviado com sucesso 🎉</p>
+<button onclick="fecharConfirmacao()">Voltar à Loja</button>
+</div>
+</div>
+
+<footer>© 2026 Doces 3° Informática - Feito com 💜</footer>
 
 <script>
-let carrinho={};
+let cart={};
 
-function add(nome,preco,qtd){
-if(!carrinho[nome]){
-carrinho[nome]={preco:preco,qtd:0};
-}
-carrinho[nome].qtd+=qtd;
-if(carrinho[nome].qtd<=0){
-delete carrinho[nome];
-}
-atualizar();
+function addItem(name,price,quantity){
+if(!cart[name]){cart[name]={price:price,quantity:0};}
+cart[name].quantity+=quantity;
+if(cart[name].quantity<=0){delete cart[name];}
+updateCart();
 }
 
-function atualizar(){
+function updateCart(){
 let lista=document.getElementById("lista");
 lista.innerHTML="";
 let total=0;
-
-for(let item in carrinho){
-let p=carrinho[item];
-let subtotal=p.preco*p.qtd;
+for(let item in cart){
+let data=cart[item];
+let subtotal=data.price*data.quantity;
 total+=subtotal;
-lista.innerHTML+=`<p>${item} x${p.qtd} - R$${subtotal.toFixed(2)}</p>`;
+lista.innerHTML+=`<p>${item} x${data.quantity} - R$${subtotal.toFixed(2)}</p>`;
 }
-
 document.getElementById("total").innerText=total.toFixed(2);
 }
 
@@ -262,21 +301,52 @@ document.getElementById("cart").classList.toggle("active");
 
 function finalizar(){
 let mensagem="Pedido:%0A";
-for(let item in carrinho){
-mensagem+=`${item} x${carrinho[item].qtd}%0A`;
+for(let item in cart){
+mensagem+=`${item} x${cart[item].quantity}%0A`;
 }
 mensagem+=`Total: R$${document.getElementById("total").innerText}`;
 
-window.open(`https://wa.me/553898140575?text=${mensagem}`);
+document.getElementById("confirmacao").classList.add("active");
+soltarConfete();
+tocarSom();
+
+setTimeout(()=>{
+window.location.href=`https://api.whatsapp.com/send?phone=553898140575&text=${mensagem}`;
+},2500);
+}
+
+function fecharConfirmacao(){
+document.getElementById("confirmacao").classList.remove("active");
+cart={};
+updateCart();
+toggleCart();
 }
 
 function cancelar(){
-carrinho={};
-atualizar();
+cart={};
+updateCart();
 toggleCart();
+}
+
+/* CONFETE */
+function soltarConfete(){
+for(let i=0;i<80;i++){
+let confete=document.createElement("div");
+confete.classList.add("confetti");
+confete.style.left=Math.random()*100+"vw";
+confete.style.background=`hsl(${Math.random()*360},100%,50%)`;
+confete.style.animationDuration=(Math.random()*3+2)+"s";
+document.body.appendChild(confete);
+setTimeout(()=>{confete.remove();},5000);
+}
+}
+
+/* SOM */
+function tocarSom(){
+let audio=new Audio("https://www.soundjay.com/buttons/sounds/button-3.mp3");
+audio.play();
 }
 </script>
 
 </body>
     </html>
-    
