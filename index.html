@@ -4,259 +4,277 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Doces da Escola</title>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 
 <style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
 
 body{
-    margin:0;
-    font-family: Arial, Helvetica, sans-serif;
-    background: linear-gradient(135deg, #000000, #3a005f);
-    color:white;
+background:linear-gradient(135deg,#2b003f,#4b0082,#ff00aa);
+min-height:100vh;
+color:white;
+overflow-x:hidden;
 }
 
-/* LADO DECORATIVO */
-.decoracao{
-    width:25%;
-    background: linear-gradient(#ff00aa,#8000ff);
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    justify-content:center;
-    font-size:40px;
-    gap:20px;
+header{
+text-align:center;
+padding:30px 20px;
+font-size:28px;
+font-weight:700;
+background:linear-gradient(90deg,#ff00aa,#a200ff);
+box-shadow:0 5px 20px rgba(0,0,0,0.4);
+animation:fadeDown 1s ease;
 }
 
-/* CONTAINER */
+@keyframes fadeDown{
+from{opacity:0; transform:translateY(-40px);}
+to{opacity:1; transform:translateY(0);}
+}
+
 .container{
-    width:75%;
-    padding:20px;
+padding:20px;
+max-width:600px;
+margin:auto;
 }
 
-.layout{
-    display:flex;
-    min-height:100vh;
+.item{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:18px;
+margin:15px 0;
+border-radius:15px;
+background:rgba(255,255,255,0.1);
+backdrop-filter:blur(10px);
+box-shadow:0 8px 20px rgba(0,0,0,0.3);
+transition:0.3s;
+animation:fadeUp 0.8s ease;
 }
 
-h1{
-    text-align:center;
-    color:#ff4dd2;
+@keyframes fadeUp{
+from{opacity:0; transform:translateY(30px);}
+to{opacity:1; transform:translateY(0);}
 }
 
-.produto{
-    background:#1a001f;
-    padding:15px;
-    margin:15px 0;
-    border-radius:15px;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
+.item:hover{
+transform:scale(1.03);
 }
 
-.controles button{
-    background:#ff00aa;
-    border:none;
-    padding:8px 12px;
-    color:white;
-    border-radius:8px;
-    cursor:pointer;
-    font-weight:bold;
-    margin-left:5px;
+.controls button{
+border:none;
+padding:10px 15px;
+margin:0 3px;
+border-radius:10px;
+font-size:18px;
+font-weight:bold;
+cursor:pointer;
+transition:0.2s;
 }
 
-.controles button:hover{
-    background:#ff66cc;
+.plus{
+background:#ff00aa;
+color:white;
 }
 
-/* BOTÃO CARRINHO */
-.carrinho-btn{
-    position:fixed;
-    top:20px;
-    right:20px;
-    background:#ff00aa;
-    padding:15px;
-    border-radius:50%;
-    cursor:pointer;
-    font-size:20px;
-    z-index:1000;
+.minus{
+background:#a200ff;
+color:white;
 }
 
-/* MENU CARRINHO */
-.carrinho{
-    position:fixed;
-    right:-350px;
-    top:0;
-    width:300px;
-    height:100%;
-    background:#120012;
-    padding:20px;
-    transition:0.4s;
-    z-index:999;
+.controls button:hover{
+transform:scale(1.2);
 }
 
-.carrinho.active{
-    right:0;
+.cart-button{
+position:fixed;
+bottom:25px;
+right:25px;
+background:linear-gradient(45deg,#ff00aa,#a200ff);
+width:70px;
+height:70px;
+border-radius:50%;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:30px;
+cursor:pointer;
+box-shadow:0 10px 25px rgba(0,0,0,0.5);
+transition:0.3s;
+}
+
+.cart-button:hover{
+transform:scale(1.1);
+}
+
+.cart{
+position:fixed;
+top:0;
+right:-100%;
+width:100%;
+max-width:400px;
+height:100%;
+background:#1a0026;
+padding:25px;
+transition:0.5s;
+overflow-y:auto;
+}
+
+.cart.active{
+right:0;
+}
+
+.cart h2{
+margin-bottom:15px;
+}
+
+.total{
+margin:15px 0;
+font-size:20px;
+font-weight:600;
+}
+
+.finalizar, .cancelar{
+width:100%;
+padding:15px;
+border:none;
+border-radius:10px;
+font-size:16px;
+margin-top:10px;
+cursor:pointer;
+transition:0.3s;
 }
 
 .finalizar{
-    background:#8000ff;
-    width:100%;
-    padding:10px;
-    border:none;
-    border-radius:10px;
-    color:white;
-    font-weight:bold;
-    cursor:pointer;
-    margin-top:10px;
+background:#25D366;
+color:white;
 }
 
 .cancelar{
-    background:#ff0066;
-    width:100%;
-    padding:10px;
-    border:none;
-    border-radius:10px;
-    color:white;
-    font-weight:bold;
-    cursor:pointer;
-    margin-top:10px;
+background:#ff0040;
+color:white;
 }
 
-/* RESPONSIVO CELULAR */
-@media (max-width: 768px){
+.finalizar:hover,.cancelar:hover{
+transform:scale(1.05);
+}
 
-    .layout{
-        display:block;
-    }
-
-    .decoracao{
-        width:100%;
-        height:120px;
-        flex-direction:row;
-        font-size:30px;
-    }
-
-    .container{
-        width:100%;
-    }
+footer{
+text-align:center;
+padding:15px;
+opacity:0.7;
+font-size:13px;
 }
 
 </style>
 </head>
-
 <body>
 
-<div class="layout">
-
-<div class="decoracao">
-🍬 🍭 🍫 🍩
-</div>
+<header>🍭 Doces da Escola 🍩</header>
 
 <div class="container">
-<h1>Doces da Escola</h1>
 
-<div class="produto">
+<div class="item">
 <span>Paçoca - R$0,50</span>
-<div class="controles">
-<button onclick="alterar('Paçoca',0.5,1)">+</button>
-<button onclick="alterar('Paçoca',0.5,-1)">-</button>
+<div class="controls">
+<button class="minus" onclick="add('Paçoca',0.50,-1)">-</button>
+<button class="plus" onclick="add('Paçoca',0.50,1)">+</button>
 </div>
 </div>
 
-<div class="produto">
+<div class="item">
 <span>Pirulito - R$1,00</span>
-<div class="controles">
-<button onclick="alterar('Pirulito',1,1)">+</button>
-<button onclick="alterar('Pirulito',1,-1)">-</button>
+<div class="controls">
+<button class="minus" onclick="add('Pirulito',1.00,-1)">-</button>
+<button class="plus" onclick="add('Pirulito',1.00,1)">+</button>
 </div>
 </div>
 
-<div class="produto">
+<div class="item">
 <span>Chiclete - R$0,50</span>
-<div class="controles">
-<button onclick="alterar('Chiclete',0.5,1)">+</button>
-<button onclick="alterar('Chiclete',0.5,-1)">-</button>
+<div class="controls">
+<button class="minus" onclick="add('Chiclete',0.50,-1)">-</button>
+<button class="plus" onclick="add('Chiclete',0.50,1)">+</button>
 </div>
 </div>
 
-<div class="produto">
-<span>Salgadinho - R$2,50</span>
-<div class="controles">
-<button onclick="alterar('Salgadinho',2.5,1)">+</button>
-<button onclick="alterar('Salgadinho',2.5,-1)">-</button>
+<div class="item">
+<span>Salgadinho - R$3,00</span>
+<div class="controls">
+<button class="minus" onclick="add('Salgadinho',3.00,-1)">-</button>
+<button class="plus" onclick="add('Salgadinho',3.00,1)">+</button>
 </div>
 </div>
 
 </div>
-</div>
 
-<!-- BOTÃO FLUTUANTE -->
-<div class="carrinho-btn" onclick="toggleCarrinho()">
-<i class="fas fa-shopping-cart"></i>
-</div>
+<div class="cart-button" onclick="toggleCart()">🛒</div>
 
-<!-- CARRINHO -->
-<div class="carrinho" id="carrinho">
-<h2>Seu Carrinho</h2>
+<div class="cart" id="cart">
+<h2>Seu Pedido</h2>
 <div id="lista"></div>
-<h3>Total: R$ <span id="total">0.00</span></h3>
-
-<button class="finalizar" onclick="finalizar()">Finalizar</button>
-<button class="cancelar" onclick="toggleCarrinho()">Cancelar</button>
-
+<div class="total">Total: R$ <span id="total">0.00</span></div>
+<button class="finalizar" onclick="finalizar()">Finalizar no WhatsApp</button>
+<button class="cancelar" onclick="cancelar()">Cancelar Pedido</button>
 </div>
+
+<footer>
+© 2026 Doces da Escola - Feito com 💜
+</footer>
 
 <script>
+let carrinho={};
 
-let carrinho = {};
-
-function alterar(nome, preco, quantidade){
-    if(!carrinho[nome]){
-        carrinho[nome] = {qtd:0, preco:preco};
-    }
-    carrinho[nome].qtd += quantidade;
-    if(carrinho[nome].qtd < 0){
-        carrinho[nome].qtd = 0;
-    }
-    atualizar();
+function add(nome,preco,qtd){
+if(!carrinho[nome]){
+carrinho[nome]={preco:preco,qtd:0};
+}
+carrinho[nome].qtd+=qtd;
+if(carrinho[nome].qtd<=0){
+delete carrinho[nome];
+}
+atualizar();
 }
 
 function atualizar(){
-    let lista = document.getElementById("lista");
-    let total = 0;
-    lista.innerHTML="";
-    
-    for(let item in carrinho){
-        if(carrinho[item].qtd > 0){
-            let subtotal = carrinho[item].qtd * carrinho[item].preco;
-            total += subtotal;
-            lista.innerHTML += `<p>${item} x${carrinho[item].qtd} - R$${subtotal.toFixed(2)}</p>`;
-        }
-    }
+let lista=document.getElementById("lista");
+lista.innerHTML="";
+let total=0;
 
-    document.getElementById("total").innerText = total.toFixed(2);
+for(let item in carrinho){
+let p=carrinho[item];
+let subtotal=p.preco*p.qtd;
+total+=subtotal;
+lista.innerHTML+=`<p>${item} x${p.qtd} - R$${subtotal.toFixed(2)}</p>`;
 }
 
-function toggleCarrinho(){
-    document.getElementById("carrinho").classList.toggle("active");
+document.getElementById("total").innerText=total.toFixed(2);
+}
+
+function toggleCart(){
+document.getElementById("cart").classList.toggle("active");
 }
 
 function finalizar(){
-    let mensagem = "Olá! Quero comprar:%0A";
-    let total = 0;
+let mensagem="Pedido:%0A";
+for(let item in carrinho){
+mensagem+=`${item} x${carrinho[item].qtd}%0A`;
+}
+mensagem+=`Total: R$${document.getElementById("total").innerText}`;
 
-    for(let item in carrinho){
-        if(carrinho[item].qtd > 0){
-            mensagem += `${item} x${carrinho[item].qtd}%0A`;
-            total += carrinho[item].qtd * carrinho[item].preco;
-        }
-    }
-
-    mensagem += `Total: R$${total.toFixed(2)}`;
-    
-    window.open(`https://wa.me/553898140575?text=${mensagem}`);
+window.open(`https://wa.me/553898140575?text=${mensagem}`);
 }
 
+function cancelar(){
+carrinho={};
+atualizar();
+toggleCart();
+}
 </script>
 
 </body>
