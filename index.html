@@ -134,7 +134,7 @@ color:#003322;
 }
 
 .confirm-box button{
-margin-top:20px;
+margin-top:15px;
 padding:12px 25px;
 border:none;
 border-radius:10px;
@@ -142,13 +142,8 @@ background:white;
 color:#00aa55;
 font-weight:bold;
 cursor:pointer;
-}
-
-footer{
-text-align:center;
-padding:15px;
-opacity:0.7;
-font-size:13px;
+display:block;
+width:100%;
 }
 </style>
 </head>
@@ -207,13 +202,15 @@ font-size:13px;
 <div class="confirmacao" id="confirmacao">
 <div class="confirm-box">
 <h2>Pedido Confirmado! 🎉</h2>
-<p>Clique abaixo para enviar no WhatsApp</p>
-<button onclick="enviarWhats()">Enviar Agora</button>
+<p>Escolha uma opção abaixo:</p>
+<button onclick="enviarWhats()">Enviar no WhatsApp</button>
 <button onclick="fecharConfirmacao()">Voltar à Loja</button>
 </div>
 </div>
 
-<footer>Doces 3° Informática</footer>
+<footer style="text-align:center;padding:15px;opacity:0.7;">
+© 2026 Doces 3° Informática - Feito com 💜
+</footer>
 
 <script>
 let cart={};
@@ -247,13 +244,21 @@ document.getElementById("confirmacao").classList.add("active");
 }
 
 function enviarWhats(){
+
 let mensagem="Pedido:%0A";
+
 for(let item in cart){
 mensagem+=`${item} x${cart[item].quantity}%0A`;
 }
+
 mensagem+=`Total: R$${document.getElementById("total").innerText}`;
 
-window.open(`https://api.whatsapp.com/send?phone=553898140575&text=${mensagem}`,"_blank");
+let link=document.createElement("a");
+link.href=`https://wa.me/553898140575?text=${mensagem}`;
+link.target="_blank";
+document.body.appendChild(link);
+link.click();
+document.body.removeChild(link);
 
 fecharConfirmacao();
 }
