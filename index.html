@@ -39,10 +39,7 @@ margin:15px 0;
 border-radius:15px;
 background:rgba(255,255,255,0.1);
 backdrop-filter:blur(10px);
-transition:0.3s;
 }
-
-.item:hover{transform:scale(1.03);}
 
 .controls button{
 border:none;
@@ -102,8 +99,6 @@ cursor:pointer;
 
 .finalizar{background:#25D366;color:white;}
 .cancelar{background:#ff0040;color:white;}
-
-/* CONFIRMAÇÃO */
 
 .confirmacao{
 position:fixed;
@@ -185,23 +180,25 @@ width:100%;
 <button class="plus" onclick="addItem('Salgadinho',2.50,1)">+</button>
 </div>
 </div>
-    
-<div class="item">
-<span>Mini Donuts - R$2,00</span>
-<div class="controls">
-<button class="minus" onclick="addItem('Pirulito',1.00,-1)">-</button>
-<button class="plus" onclick="addItem('Pirulito',1.00,1)">+</button>
-</div>
-</div>
-</div>
 
 <div class="item">
 <span>Brigadeiro - R$2,00</span>
 <div class="controls">
-<button class="minus" onclick="addItem('Pirulito',1.00,-1)">-</button>
-<button class="plus" onclick="addItem('Pirulito',1.00,1)">+</button>
+<button class="minus" onclick="addItem('Brigadeiro',2.00,-1)">-</button>
+<button class="plus" onclick="addItem('Brigadeiro',2.00,1)">+</button>
 </div>
 </div>
+
+<div class="item">
+<span>Mini Donuts - R$2,00 (3 por R$5)</span>
+<div class="controls">
+<button class="minus" onclick="addItem('Mini Donuts',2.00,-1)">-</button>
+<button class="plus" onclick="addItem('Mini Donuts',2.00,1)">+</button>
+</div>
+</div>
+
+</div>
+
 <div class="cart-button" onclick="toggleCart()">🛒</div>
 
 <div class="cart" id="cart">
@@ -212,19 +209,13 @@ width:100%;
 <button class="cancelar" onclick="cancelar()">Cancelar Pedido</button>
 </div>
 
-<!-- CONFIRMAÇÃO -->
 <div class="confirmacao" id="confirmacao">
 <div class="confirm-box">
-<h2>Pedido Confirmado! 🎉</h2>
-<p>Escolha uma opção abaixo:</p>
+<h2>Pedido Confirmado 🎉</h2>
 <button onclick="enviarWhats()">Enviar no WhatsApp</button>
 <button onclick="fecharConfirmacao()">Voltar à Loja</button>
 </div>
 </div>
-
-<footer style="text-align:center;padding:15px;opacity:0.7;">
-💜DOCES 3° ANO💜
-</footer>
 
 <script>
 let cart={};
@@ -236,16 +227,31 @@ if(cart[name].quantity<=0){delete cart[name];}
 updateCart();
 }
 
+function calcularPreco(item,quantidade,preco){
+
+if(item==="Mini Donuts"){
+let promo=Math.floor(quantidade/3)*5;
+let resto=(quantidade%3)*2;
+return promo+resto;
+}
+
+return preco*quantidade;
+}
+
 function updateCart(){
 let lista=document.getElementById("lista");
 lista.innerHTML="";
 let total=0;
+
 for(let item in cart){
 let data=cart[item];
-let subtotal=data.price*data.quantity;
+let subtotal=calcularPreco(item,data.quantity,data.price);
+
 total+=subtotal;
+
 lista.innerHTML+=`<p>${item} x${data.quantity} - R$${subtotal.toFixed(2)}</p>`;
 }
+
 document.getElementById("total").innerText=total.toFixed(2);
 }
 
@@ -270,6 +276,7 @@ mensagem+=`Total: R$${document.getElementById("total").innerText}`;
 let link=document.createElement("a");
 link.href=`https://wa.me/553898140575?text=${mensagem}`;
 link.target="_blank";
+
 document.body.appendChild(link);
 link.click();
 document.body.removeChild(link);
