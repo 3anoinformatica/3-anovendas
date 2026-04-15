@@ -3,275 +3,299 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Doces 3° Informática</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+<title>Doces da Escola</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Pacifico&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
 
 body{
-background:linear-gradient(135deg,#2b003f,#4b0082,#ff00aa);
-min-height:100vh;
-color:#89CFF0;
+    margin:0;
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #0a0014, #2b0040);
+    color:white;
 }
 
+/* HEADER */
 header{
-text-align:center;
-padding:30px;
-font-size:28px;
-font-weight:700;
-background:linear-gradient(90deg,#ff00aa,#a200ff);
+    padding:20px;
+    text-align:center;
+    background: rgba(0,0,0,0.3);
+    backdrop-filter: blur(10px);
 }
 
+header h1{
+    font-family: 'Pacifico', cursive;
+    color:#ff66cc;
+    font-size:32px;
+}
+
+/* PRODUTOS */
 .container{
-padding:20px;
-max-width:600px;
-margin:auto;
+    padding:20px;
+    max-width:900px;
+    margin:auto;
 }
 
-.item{
-display:flex;
-justify-content:space-between;
-align-items:center;
-padding:18px;
-margin:15px 0;
-border-radius:15px;
-background:rgba(255,255,255,0.1);
-backdrop-filter:blur(10px);
+.produto{
+    background: rgba(255,255,255,0.05);
+    border:1px solid rgba(255,255,255,0.1);
+    padding:15px;
+    margin:15px 0;
+    border-radius:15px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    transition:0.3s;
 }
 
-.controls button{
-border:none;
-padding:10px 15px;
-margin:0 3px;
-border-radius:10px;
-font-size:18px;
-font-weight:bold;
-cursor:pointer;
-color:white;
+.produto:hover{
+    transform:scale(1.02);
 }
 
-.plus{background:#ff00aa;}
-.minus{background:#a200ff;}
-
-.cart-button{
-position:fixed;
-bottom:25px;
-right:25px;
-background:linear-gradient(45deg,#ff00aa,#a200ff);
-width:70px;
-height:70px;
-border-radius:50%;
-display:flex;
-align-items:center;
-justify-content:center;
-font-size:30px;
-cursor:pointer;
+.info{
+    display:flex;
+    flex-direction:column;
 }
 
-.cart{
-position:fixed;
-top:0;
-right:-100%;
-width:100%;
-max-width:400px;
-height:100%;
-background:#1a0026;
-padding:25px;
-transition:0.5s;
-overflow-y:auto;
+.nome{
+    font-size:18px;
 }
 
-.cart.active{right:0;}
-
-.total{margin:15px 0;font-size:20px;font-weight:600;}
-
-.finalizar,.cancelar{
-width:100%;
-padding:15px;
-border:none;
-border-radius:10px;
-font-size:16px;
-margin-top:10px;
-cursor:pointer;
+.preco{
+    color:#ff99dd;
 }
 
-.finalizar{background:#25D366;color:white;}
-.cancelar{background:#ff0040;color:white;}
-
-.confirmacao{
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
-background:rgba(0,0,0,0.9);
-display:flex;
-align-items:center;
-justify-content:center;
-opacity:0;
-pointer-events:none;
-transition:0.4s;
+/* BOTÕES */
+.controles button{
+    background: linear-gradient(45deg,#ff00aa,#8000ff);
+    border:none;
+    padding:10px;
+    color:white;
+    border-radius:10px;
+    cursor:pointer;
+    margin-left:5px;
+    font-size:16px;
 }
 
-.confirmacao.active{
-opacity:1;
-pointer-events:all;
+.controles button:hover{
+    opacity:0.8;
 }
 
-.confirm-box{
-background:linear-gradient(135deg,#00ff88,#00cc66);
-padding:40px;
-border-radius:20px;
-text-align:center;
-color:#003322;
+/* CARRINHO */
+.carrinho-btn{
+    position:fixed;
+    bottom:20px;
+    right:20px;
+    background: linear-gradient(45deg,#ff00aa,#8000ff);
+    padding:15px;
+    border-radius:50%;
+    font-size:20px;
+    cursor:pointer;
 }
 
-.confirm-box button{
-margin-top:15px;
-padding:12px 25px;
-border:none;
-border-radius:10px;
-background:white;
-color:#00aa55;
-font-weight:bold;
-cursor:pointer;
-display:block;
-width:100%;
+/* OVERLAY */
+.overlay{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background: rgba(0,0,0,0.7);
+    display:none;
 }
+
+.overlay.active{
+    display:block;
+}
+
+/* MENU CARRINHO */
+.carrinho{
+    position:fixed;
+    bottom:-100%;
+    left:0;
+    width:100%;
+    background:#120012;
+    padding:20px;
+    border-radius:20px 20px 0 0;
+    transition:0.4s;
+}
+
+.carrinho.active{
+    bottom:0;
+}
+
+button{
+    font-family: inherit;
+}
+
+/* BOTÕES DO CARRINHO */
+.finalizar{
+    background:#00c853;
+    width:100%;
+    padding:12px;
+    border:none;
+    border-radius:10px;
+    color:white;
+    margin-top:10px;
+    font-weight:bold;
+}
+
+.cancelar{
+    background:#ff1744;
+    width:100%;
+    padding:12px;
+    border:none;
+    border-radius:10px;
+    color:white;
+    margin-top:10px;
+}
+
+.limpar{
+    background:#555;
+    width:100%;
+    padding:10px;
+    border:none;
+    border-radius:10px;
+    color:white;
+    margin-top:10px;
+}
+
 </style>
 </head>
 
 <body>
 
-<header>🍭 Doces 3° Informática 🍩</header>
+<header>
+<h1>Doces da Escola 🍬</h1>
+</header>
 
 <div class="container">
 
-<div class="item">
-<span>Paçoca - R$0,50</span>
-<div class="controls">
-<button class="minus" onclick="addItem('Paçoca',0.50,-1)">-</button>
-<button class="plus" onclick="addItem('Paçoca',0.50,1)">+</button>
+<div class="produto">
+<div class="info">
+<span class="nome">Paçoca</span>
+<span class="preco">R$0,50</span>
+</div>
+<div class="controles">
+<button onclick="alterar('Paçoca',0.5,1)">+</button>
+<button onclick="alterar('Paçoca',0.5,-1)">-</button>
 </div>
 </div>
 
-<div class="item">
-<span>Pirulito - R$1,00</span>
-<div class="controls">
-<button class="minus" onclick="addItem('Pirulito',1.00,-1)">-</button>
-<button class="plus" onclick="addItem('Pirulito',1.00,1)">+</button>
+<div class="produto">
+<div class="info">
+<span class="nome">Pirulito</span>
+<span class="preco">R$1,00</span>
+</div>
+<div class="controles">
+<button onclick="alterar('Pirulito',1,1)">+</button>
+<button onclick="alterar('Pirulito',1,-1)">-</button>
 </div>
 </div>
 
-<div class="item">
-<span>Chiclete - R$0,25</span>
-<div class="controls">
-<button class="minus" onclick="addItem('Chiclete',0.50,-1)">-</button>
-<button class="plus" onclick="addItem('Chiclete',0.50,1)">+</button>
+<div class="produto">
+<div class="info">
+<span class="nome">Chiclete</span>
+<span class="preco">R$0,50</span>
+</div>
+<div class="controles">
+<button onclick="alterar('Chiclete',0.5,1)">+</button>
+<button onclick="alterar('Chiclete',0.5,-1)">-</button>
+</div>
+</div>
+
+<div class="produto">
+<div class="info">
+<span class="nome">Salgadinho</span>
+<span class="preco">R$2,50</span>
+</div>
+<div class="controles">
+<button onclick="alterar('Salgadinho',2.5,1)">+</button>
+<button onclick="alterar('Salgadinho',2.5,-1)">-</button>
 </div>
 </div>
 
 </div>
 
-<div class="cart-button" onclick="toggleCart()">🛒</div>
+<!-- BOTÃO -->
+<div class="carrinho-btn" onclick="toggleCarrinho()">
+<i class="fas fa-shopping-cart"></i>
+</div>
 
-<div class="cart" id="cart">
-<h2>Seu Pedido</h2>
+<!-- OVERLAY -->
+<div class="overlay" id="overlay" onclick="toggleCarrinho()"></div>
+
+<!-- CARRINHO -->
+<div class="carrinho" id="carrinho">
+<h2>Seu pedido</h2>
 <div id="lista"></div>
-<div class="total">Total: R$ <span id="total">0.00</span></div>
-<button class="finalizar" onclick="mostrarConfirmacao()">Finalizar no WhatsApp</button>
-<button class="cancelar" onclick="cancelar()">Cancelar Pedido</button>
-</div>
+<h3>Total: R$ <span id="total">0.00</span></h3>
 
-<div class="confirmacao" id="confirmacao">
-<div class="confirm-box">
-<h2>Pedido Confirmado 🎉</h2>
-<button onclick="enviarWhats()">Enviar no WhatsApp</button>
-<button onclick="fecharConfirmacao()">Voltar à Loja</button>
-</div>
+<button class="finalizar" onclick="finalizar()">Finalizar no WhatsApp</button>
+<button class="limpar" onclick="limpar()">Limpar carrinho</button>
+<button class="cancelar" onclick="toggleCarrinho()">Cancelar</button>
 </div>
 
 <script>
-let cart={};
 
-function addItem(name,price,quantity){
-if(!cart[name]){cart[name]={price:price,quantity:0};}
-cart[name].quantity+=quantity;
-if(cart[name].quantity<=0){delete cart[name];}
-updateCart();
+let carrinho = {};
+
+function alterar(nome, preco, quantidade){
+    if(!carrinho[nome]){
+        carrinho[nome] = {qtd:0, preco:preco};
+    }
+    carrinho[nome].qtd += quantidade;
+    if(carrinho[nome].qtd < 0){
+        carrinho[nome].qtd = 0;
+    }
+    atualizar();
 }
 
-function calcularPreco(item,quantidade,preco){
+function atualizar(){
+    let lista = document.getElementById("lista");
+    let total = 0;
+    lista.innerHTML="";
+    
+    for(let item in carrinho){
+        if(carrinho[item].qtd > 0){
+            let subtotal = carrinho[item].qtd * carrinho[item].preco;
+            total += subtotal;
+            lista.innerHTML += `<p>${item} x${carrinho[item].qtd} - R$${subtotal.toFixed(2)}</p>`;
+        }
+    }
 
-if(item==="Mini Donuts"){
-let promo=Math.floor(quantidade/3)*5;
-let resto=(quantidade%3)*2;
-return promo+resto;
+    document.getElementById("total").innerText = total.toFixed(2);
 }
 
-return preco*quantidade;
+function toggleCarrinho(){
+    document.getElementById("carrinho").classList.toggle("active");
+    document.getElementById("overlay").classList.toggle("active");
 }
 
-function updateCart(){
-let lista=document.getElementById("lista");
-lista.innerHTML="";
-let total=0;
-
-for(let item in cart){
-let data=cart[item];
-let subtotal=calcularPreco(item,data.quantity,data.price);
-
-total+=subtotal;
-
-lista.innerHTML+=`<p>${item} x${data.quantity} - R$${subtotal.toFixed(2)}</p>`;
+function limpar(){
+    carrinho = {};
+    atualizar();
 }
 
-document.getElementById("total").innerText=total.toFixed(2);
+function finalizar(){
+    let mensagem = "Olá! Quero comprar:%0A";
+    let total = 0;
+
+    for(let item in carrinho){
+        if(carrinho[item].qtd > 0){
+            mensagem += `${item} x${carrinho[item].qtd}%0A`;
+            total += carrinho[item].qtd * carrinho[item].preco;
+        }
+    }
+
+    mensagem += `Total: R$${total.toFixed(2)}`;
+    
+    window.open(`https://wa.me/553898140575?text=${mensagem}`);
 }
 
-function toggleCart(){
-document.getElementById("cart").classList.toggle("active");
-}
-
-function mostrarConfirmacao(){
-document.getElementById("confirmacao").classList.add("active");
-}
-
-function enviarWhats(){
-
-let mensagem="Pedido:%0A";
-
-for(let item in cart){
-mensagem+=`${item} x${cart[item].quantity}%0A`;
-}
-
-mensagem+=`Total: R$${document.getElementById("total").innerText}`;
-
-let link=document.createElement("a");
-link.href=`https://wa.me/553898140575?text=${mensagem}`;
-link.target="_blank";
-
-document.body.appendChild(link);
-link.click();
-document.body.removeChild(link);
-
-fecharConfirmacao();
-}
-
-function fecharConfirmacao(){
-document.getElementById("confirmacao").classList.remove("active");
-cart={};
-updateCart();
-toggleCart();
-}
-
-function cancelar(){
-cart={};
-updateCart();
-toggleCart();
-}
 </script>
 
 </body>
