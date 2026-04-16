@@ -84,6 +84,38 @@ header h1{
     opacity:0.8;
 }
 
+/* GALERIA */
+.galeria{
+    margin-top:40px;
+    text-align:center;
+}
+
+.galeria h2{
+    color:#ff66cc;
+}
+
+.card-img{
+    background: rgba(255,255,255,0.05);
+    padding:15px;
+    border-radius:15px;
+    max-width:250px;
+    margin:20px auto;
+    transition:0.3s;
+}
+
+.card-img:hover{
+    transform:scale(1.05);
+}
+
+.card-img img{
+    width:100%;
+    border-radius:10px;
+}
+
+.card-img p{
+    margin-top:10px;
+}
+
 /* CARRINHO */
 .carrinho-btn{
     position:fixed;
@@ -125,10 +157,6 @@ header h1{
 
 .carrinho.active{
     bottom:0;
-}
-
-button{
-    font-family: inherit;
 }
 
 /* BOTÕES DO CARRINHO */
@@ -174,6 +202,7 @@ button{
 
 <div class="container">
 
+<!-- PRODUTOS -->
 <div class="produto">
 <div class="info">
 <span class="nome">Paçoca</span>
@@ -216,6 +245,18 @@ button{
 <button onclick="alterar('Salgadinho',2.5,1)">+</button>
 <button onclick="alterar('Salgadinho',2.5,-1)">-</button>
 </div>
+</div>
+
+<!-- GALERIA -->
+<div class="galeria">
+
+<h2>🍬 Nossos Doces</h2>
+
+<div class="card-img">
+<img src=pacoca.png">
+<p>Paçoca deliciosa 😋</p>
+</div>
+
 </div>
 
 </div>
@@ -299,4 +340,4 @@ function finalizar(){
 </script>
 
 </body>
-    </html>
+                                                </html>
